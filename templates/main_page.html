@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Demo Web App</title>
+</head>
+<body>
+<p><strong>This is our entry point page.</strong></p>
+
+{% if lucky_num %}
+Your lucky number now is: <b>{{ lucky_num }}</b>
+{% else %}
+No lucky number for now...
+{% endif %}
+
+</body>
+</html>

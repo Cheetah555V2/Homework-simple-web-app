@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Function plotter</title>
+</head>
+<body>
+    <form>
+        <input type="text" name="func_expr" value="{{ func_expr }}">
+        <button type="submit">Plot</button>
+    </form>
+
+    <img src="{{ url_for('static', filename="test.png") }}" alt="Plot" width="400">
+</body>
+</html>
