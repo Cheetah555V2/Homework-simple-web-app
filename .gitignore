@@ -1,3 +1,4 @@
 /static/plot*
 /.venv/
 /.venvmin/
+__pycache__
