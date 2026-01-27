@@ -18,10 +18,43 @@ def plot_expression(expr_str, a, b, plot_file):
 
     x_vals = np.linspace(a, b, n + 1)
 
-    y_vals = []
-    for x in x_vals:
-        y = eval(expr_str)   ## Unsafe!!!
-        y_vals.append(y)
+    # provide a restricted "safe" namespace with numpy/math helpers
+    safe = {
+        'np': np,
+        'numpy': np,
+        'math': math,
+        'sin': np.sin,
+        'cos': np.cos,
+        'tan': np.tan,
+        'arcsin': np.arcsin,
+        'arccos': np.arccos,
+        'arctan': np.arctan,
+        'exp': np.exp,
+        'log': np.log,
+        'sqrt': np.sqrt,
+        'abs': np.abs,
+        'pi': math.pi,
+        'e': math.e,
+    }
+
+    # Try vectorized evaluation first (x is the whole numpy array)
+    try:
+        local = {'x': x_vals}
+        y_vals = eval(expr_str, {"__builtins__": {}}, {**safe, **local})
+        y_vals = np.array(y_vals)
+        # if shapes don't match, force fallback
+        if y_vals.shape != x_vals.shape:
+            raise ValueError("Vectorized eval did not return expected shape")
+    except Exception:
+        # Fallback: evaluate expression for each scalar x
+        y_list = []
+        for x in x_vals:
+            try:
+                y = eval(expr_str, {"__builtins__": {}}, {**safe, 'x': x})
+            except Exception:
+                y = np.nan
+            y_list.append(y)
+        y_vals = np.array(y_list)
 
     fig = plt.figure()
     plt.plot(x_vals, y_vals)
