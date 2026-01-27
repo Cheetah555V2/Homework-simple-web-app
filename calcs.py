@@ -4,6 +4,9 @@ import time
 import math
 
 # matplotlib.use('qtagg')
+import matplotlib
+matplotlib.use('Agg')
+
 import matplotlib.pyplot as plt
 
 def f(x):
@@ -20,9 +23,10 @@ def plot_expression(expr_str, a, b, plot_file):
         y = eval(expr_str)   ## Unsafe!!!
         y_vals.append(y)
 
+    fig = plt.figure()
     plt.plot(x_vals, y_vals)
-    plt.savefig(plot_file)
-    plt.clf()
+    fig.savefig(plot_file)
+    plt.close(fig)
 
 # IMAGE: array/tenzor of 1920x1080x3
 

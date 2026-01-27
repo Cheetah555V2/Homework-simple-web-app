@@ -5,11 +5,13 @@
     <title>Function plotter</title>
 </head>
 <body>
-    <form>
-        <input type="text" name="func_expr" value="{{ func_expr }}">
+    <form method="get" action="/">
+        <input type="text" name="func_expr" value="{{ func_expr }}" placeholder="e.g. x**3-3*x+2">
         <button type="submit">Plot</button>
     </form>
 
-    <img src="{{ url_for('static', filename="test.png") }}" alt="Plot" width="400">
+    {% if plot_file %}
+        <img src="{{ url_for('static', filename=plot_file) }}?v={{ version }}" alt="Plot" width="400">
+    {% endif %}
 </body>
 </html>
