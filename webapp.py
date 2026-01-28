@@ -19,6 +19,10 @@ def main_page():
     min_interval = request.args.get('min_interval', type=float)
     max_interval = request.args.get('max_interval', type=float)
 
+    color = request.args.get('color', 'blue', type=str)
+
+    print(color, color[0:2])
+
     # set sensible defaults if not provided
     if min_interval is None:
         min_interval = -2.0
@@ -28,12 +32,13 @@ def main_page():
     if user_input != '':
         os.makedirs('static', exist_ok=True) # make sure that dir static exist
 
-        h = hashlib.sha256(user_input.encode('utf-8')).hexdigest()[:12]
+        unhash_text = user_input + str(min_interval) + str(max_interval) + str(color)
+        h = hashlib.sha256(unhash_text.encode('utf-8')).hexdigest()[:12]
         plot_file = f"plot_{h}.png"
         plot_path = os.path.join('static', plot_file)
 
         try:
-            plot_expression(user_input, min_interval, max_interval, plot_path)
+            plot_expression(user_input, min_interval, max_interval, color, plot_path)
             version = str(int(time.time() * 1000))  # cache-buster for the browser
         except Exception:
             plot_file = ''
@@ -44,7 +49,8 @@ def main_page():
                            plot_file=plot_file,
                            version=version,
                            min_interval=min_interval,
-                           max_interval=max_interval)
+                           max_interval=max_interval,
+                           color=color)
 
 @app.route("/test")  # http://127.0.0.1:5000/test
 def test_route():

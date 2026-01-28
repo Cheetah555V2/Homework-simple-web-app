@@ -11,6 +11,8 @@
         <input type="number" name="min_interval" value="{{ min_interval }}" placeholder="Min interval">
         <input type="number" name="max_interval" value="{{ max_interval }}" placeholder="Max interval">
         <br>
+        <input type="color" name="color" value="{{ color|default('blue') }}">
+        <br>
         <button type="submit">Plot</button>
     </form>
 
