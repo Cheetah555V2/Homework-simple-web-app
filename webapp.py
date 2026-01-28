@@ -32,7 +32,7 @@ def main_page():
     if user_input != '':
         os.makedirs('static', exist_ok=True) # make sure that dir static exist
 
-        unhash_text = user_input + str(min_interval) + str(max_interval) + str(color)
+        unhash_text = user_input + '&' + str(min_interval) + '&' + str(max_interval) + '&' + str(color)
         h = hashlib.sha256(unhash_text.encode('utf-8')).hexdigest()[:12]
         plot_file = f"plot_{h}.png"
         plot_path = os.path.join('static', plot_file)
