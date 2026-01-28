@@ -7,6 +7,10 @@
 <body>
     <form method="get" action="/">
         <input type="text" name="func_expr" value="{{ func_expr }}" placeholder="e.g. x**3-3*x+2">
+        <br>
+        <input type="number" name="min_interval" value="{{ min_interval }}" placeholder="Min interval">
+        <input type="number" name="max_interval" value="{{ max_interval }}" placeholder="Max interval">
+        <br>
         <button type="submit">Plot</button>
     </form>
 
