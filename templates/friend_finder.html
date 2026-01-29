@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Friend Finder</title>
+</head>
+<body>
+<h1>Find a friend for the moment</h1>
+
+{% if error %}
+<p style="color: red">{{ error }}</p>
+{% endif %}
+
+<form method="post" action="/friend-finder">
+    <label>Nickname: <input type="text" name="nickname"></label><br>
+    <label>Message: <br><textarea name="message" rows="4" cols="60"></textarea></label><br>
+    <button type="submit">Find friends</button>
+</form>
+
+{% if top3 %}
+    <h2>Top-3 similar messages (raw)</h2>
+    <ul>
+    {% for item in top3 %}
+        <li><strong>{{ item.nickname }}</strong>: {{ item.message }} (sim={{ item.sim }})</li>
+    {% endfor %}
+    </ul>
+{% endif %}
+
+{% if recommendations %}
+    <h2>Recommendations</h2>
+    <ul>
+    {% for r in recommendations %}
+        <li><strong>{{ r.nickname }}</strong>: {{ r.message }} (sim={{ r.sim }})</li>
+    {% endfor %}
+    </ul>
+{% elif recommendations is not none %}
+    <p>No recommendations found.</p>
+{% endif %}
+
+</body>
+</html>

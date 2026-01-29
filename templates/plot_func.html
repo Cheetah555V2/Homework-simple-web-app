@@ -14,7 +14,12 @@
         <input type="color" name="color" value="{{ color|default('blue') }}">
         <br>
         <button type="submit">Plot</button>
+        <button type="button" onclick="location.href='/friend-finder'">Find friends</button>
     </form>
+
+    {% if expr_str %}
+        <p>Converted expression: <code>{{ expr_str }}</code></p>
+    {% endif %}
 
     {% if plot_file %}
         <img src="{{ url_for('static', filename=plot_file) }}?v={{ version }}" alt="Plot" width="400">
